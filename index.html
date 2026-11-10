@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SegarBuah - Toko Buah Segar & Sehat</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+  body{background:#fffaf2;color:#222}
+  header{background:#fff;display:flex;justify-content:space-between;align-items:center;padding:16px 5%;position:sticky;top:0;box-shadow:0 2px 10px rgba(0,0,0,.08);z-index:10}
+  .logo{font-size:24px;font-weight:800;color:#2e9e4f}.logo span{color:#ff7a00}
+  nav a{margin:0 12px;text-decoration:none;color:#333;font-weight:600}
+  .btn{background:#2e9e4f;color:#fff;padding:10px 18px;border:none;border-radius:999px;cursor:pointer;font-weight:700}
+  .btn-orange{background:#ff7a00}
+  .hero{display:flex;flex-wrap:wrap;align-items:center;padding:40px 5%;gap:30px;background:linear-gradient(120deg,#e8ffe9,#fff3d6)}
+  .hero-text{flex:1;min-width:280px}.hero-text h1{font-size:42px;line-height:1.1}.hero-text h1 span{color:#2e9e4f}
+  .hero-text p{margin:16px 0;color:#555}
+  .hero img{flex:1;max-width:480px;width:100%;border-radius:24px;object-fit:cover}
+  .section{padding:40px 5%}
+  .section h2{text-align:center;font-size:28px;margin-bottom:8px}
+  .section p.sub{text-align:center;color:#777;margin-bottom:24px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+  .card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);padding-bottom:16px;text-align:center}
+  .card img{width:100%;height:160px;object-fit:cover}
+  .card h3{margin:12px 0 4px}.card .price{color:#2e9e4f;font-weight:800;font-size:18px}
+  .card button{margin-top:10px}
+  .cart-box{background:#fff;border-radius:18px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.08);max-width:600px;margin:0 auto}
+  .cart-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #ddd}
+  footer{background:#1a2e1f;color:#fff;text-align:center;padding:24px;margin-top:30px}
+  @media(max-width:600px){.hero-text h1{font-size:32px} nav{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Segar<span>Buah</span> 🍎</div>
+  <nav><a href="#beranda">Beranda</a><a href="#produk">Produk</a><a href="#tentang">Tentang</a><a href="#keranjang">Keranjang</a></nav>
+  <button class="btn" onclick="document.getElementById('keranjang').scrollIntoView({behavior:'smooth'})">🛒 Keranjang (<span id="cartCount">0</span>)</button>
+</header>
+
+<section class="hero" id="beranda">
+  <div class="hero-text">
+    <p style="color:#ff7a00;font-weight:700">✦ GRATIS ONGKIR MIN. BELANJA 100RB</p>
+    <h1>Buah Segar, <span>Hidup Sehat</span> Setiap Hari.</h1>
+    <p>Dipetik langsung dari petani lokal setiap pagi. Manis, segar, dan diantar ke rumahmu dalam 2 jam!</p>
+    <button class="btn" onclick="document.getElementById('produk').scrollIntoView({behavior:'smooth'})">Belanja Sekarang</button>
+    <button class="btn btn-orange" onclick="window.open('https://wa.me/6281234567890?text=Halo%20SegarBuah!%20Saya%20mau%20pesan%20buah','_blank')">Chat WhatsApp</button>
+    <p style="font-size:13px;margin-top:12px">⭐ 4.9 | 2.300+ Pelanggan Puas | 📍 Sungairampah, Sumut</p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=800" alt="Buah Segar">
+</section>
+
+<section class="section" id="produk">
+  <h2>🍓 Buah Best Seller</h2>
+  <p class="sub">Semua buah fresh, bisa request potong & kupas gratis</p>
+  <div class="grid" id="productGrid"></div>
+</section>
+
+<section class="section" id="tentang" style="background:#e8ffe9;text-align:center;border-radius:20px;margin:0 5%">
+  <h2>Kenapa Pilih SegarBuah?</h2>
+  <p style="margin-top:12px">✅ 100% Fresh dari Petani &nbsp; | &nbsp; 🚚 Antar 2 Jam &nbsp; | &nbsp; 💯 Garansi Ganti Jika Busuk &nbsp; | &nbsp; 💳 COD / Transfer / QRIS</p>
+</section>
+
+<section class="section" id="keranjang">
+  <h2>🛒 Keranjang Kamu</h2>
+  <p class="sub">Cek pesananmu sebelum checkout</p>
+  <div class="cart-box">
+    <div id="cartItems"><p style="text-align:center;color:#888">Keranjang masih kosong. Yuk pilih buah dulu!</p></div>
+    <h3 style="text-align:right;margin-top:16px">Total: Rp <span id="totalPrice">0</span></h3>
+    <input id="nama" placeholder="Nama kamu" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;margin:10px 0">
+    <input id="alamat" placeholder="Alamat lengkap" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;margin-bottom:12px">
+    <button class="btn" style="width:100%;font-size:16px" onclick="checkout()">Checkout via WhatsApp</button>
+  </div>
+</section>
+
+<footer>
+  <h3>SegarBuah 🍎</h3>
+  <p>Jl. Raya Sungairampah, Sumatera Utara | Buka 07.00 - 21.00 WIB</p>
+  <p>© 2026 SegarBuah. Dibuat dengan ❤️ untuk hidup sehat.</p>
+</footer>
+
+<script>
+const products = [
+  {id:1, name:"Apel Fuji", price:35000, unit:"/kg", img:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=600"},
+  {id:2, name:"Jeruk Mandarin", price:28000, unit:"/kg", img:"https://images.unsplash.com/photo-1547514701-42782101795e?w=600"},
+  {id:3, name:"Mangga Harum Manis", price:25000, unit:"/kg", img:"https://images.unsplash.com/photo-1553279768-865429fa0078?w=600"},
+  {id:4, name:"Strawberry", price:45000, unit:"/box", img:"https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=600"},
+  {id:5, name:"Alpukat Mentega", price:30000, unit:"/kg", img:"https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=600"},
+  {id:6, name:"Anggur Merah", price:65000, unit:"/kg", img:"https://images.unsplash.com/photo-1537640538966-79f369143f8f?w=600"},
+  {id:7, name:"Pisang Cavendish", price:18000, unit:"/sisir", img:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=600"},
+  {id:8, name:"Naga Merah", price:22000, unit:"/kg", img:"https://images.unsplash.com/photo-1526318896980-cf78c088247c?w=600"},
+];
+let cart = {};
+const grid = document.getElementById('productGrid');
+grid.innerHTML = products.map(p=>`
+  <div class="card">
+    <img src="${p.img}">
+    <h3>${p.name}</h3>
+    <p style="color:#888;font-size:13px">Segar & Manis</p>
+    <div class="price">Rp ${p.price.toLocaleString('id-ID')}${p.unit}</div>
+    <button class="btn" onclick="addToCart(${p.id})">+ Tambah</button>
+  </div>`).join('');
+
+function addToCart(id){ cart[id]=(cart[id]||0)+1; renderCart(); }
+function renderCart(){
+  const items = document.getElementById('cartItems');
+  let total=0, count=0, html='';
+  for(let id in cart){
+    const p = products.find(x=>x.id==id); const qty=cart[id]; const sub=p.price*qty; total+=sub; count+=qty;
+    html+=`<div class="cart-item"><span>${p.name} x ${qty}</span><span>Rp ${sub.toLocaleString('id-ID')} <button onclick="removeItem(${id})" style="border:none;background:none;cursor:pointer">❌</button></span></div>`;
+  }
+  items.innerHTML = html || '<p style="text-align:center;color:#888">Keranjang masih kosong.</p>';
+  document.getElementById('totalPrice').innerText = total.toLocaleString('id-ID');
+  document.getElementById('cartCount').innerText = count;
+}
+function removeItem(id){ delete cart[id]; renderCart(); }
+function checkout(){
+  const nama=document.getElementById('nama').value; const alamat=document.getElementById('alamat').value;
+  if(Object.keys(cart).length===0) return alert('Keranjang masih kosong!');
+  if(!nama||!alamat) return alert('Isi nama & alamat dulu ya!');
+  let pesan=`Halo SegarBuah! Saya ${nama}%0AAlamat: ${alamat}%0A%0APesanan:%0A`;
+  for(let id in cart){ const p=products.find(x=>x.id==id); pesan+=`- ${p.name} x ${cart[id]} = Rp ${(p.price*cart[id]).toLocaleString('id-ID')}%0A`; }
+  pesan+=`%0ATotal: Rp ${document.getElementById('totalPrice').innerText}`;
+  window.open('https://wa.me/6281234567890?text='+pesan,'_blank');
+}
+</script>
+</body>
+</html>
